@@ -4,7 +4,7 @@ import GameDefine, {
   ILevelDefine,
 } from "../game/GameDefine";
 
-import { connectWsgw } from '@elofun/vds-wsgw';
+// import { connectWsgw } from '@elofun/vds-wsgw';
 
 interface IAPIResponse {
   status: number;
