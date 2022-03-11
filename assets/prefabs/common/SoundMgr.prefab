@@ -1,0 +1,181 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false,
+    "readonly": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "SoundMgr",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "2489ecSU5tA570DZWcyykal",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "BGM": {
+      "__uuid__": "16afdf88-f52a-4d23-abe0-ec7dc9b5628a"
+    },
+    "BGM_MENU": {
+      "__uuid__": "1be1b010-620b-47e1-b796-cc4be0b9168a"
+    },
+    "BGM_BOSS": {
+      "__uuid__": "1646a641-dd3e-46a2-8b9f-2c7132ddaf0d"
+    },
+    "SFX_CLICK": {
+      "__uuid__": "a3d562ab-1711-4082-8034-78f01866806c"
+    },
+    "SFX_BUTTON_01": {
+      "__uuid__": "17d58458-4735-4851-a624-8e8d43dbbcdd"
+    },
+    "SFX_BUTTON_02": {
+      "__uuid__": "34069cad-0a24-4c86-99ad-9656a3c69315"
+    },
+    "SFX_BUTTON_03": {
+      "__uuid__": "d006cc13-8d62-4722-a24f-a6cafa337abe"
+    },
+    "SFX_BUTTON_08": {
+      "__uuid__": "cf6a0470-9bbf-4030-af87-0890bea2cb4f"
+    },
+    "SFX_BUTTON_09": {
+      "__uuid__": "0b60796c-70d0-4ddb-9c2c-81e50880f852"
+    },
+    "SFX_BUTTON_10": {
+      "__uuid__": "2d0b350c-0568-410b-8259-c3d6b33aa9f0"
+    },
+    "SFX_BULLET_MC": {
+      "__uuid__": "595b1796-ba8a-44f5-8df7-0e76ed2873fb"
+    },
+    "SFX_BULLET_BOSS": {
+      "__uuid__": "28cf062c-79b7-410b-ad88-7e5163d0b7ff"
+    },
+    "SFX_MOP_DIE": {
+      "__uuid__": "68def226-0115-4888-9545-d59d665d0850"
+    },
+    "SFX_BOSS_02_ATTACK": {
+      "__uuid__": "f8f89043-f8a6-43fe-9d81-5dc0eb0dd19b"
+    },
+    "SFX_BOSS_03_TELEPORT": {
+      "__uuid__": "5135267d-6c5a-47b5-9734-16bcbfe429a8"
+    },
+    "SFX_BOSS_04_ATTACK": {
+      "__uuid__": "1f55123b-f652-4441-b1de-e57b8736d5db"
+    },
+    "SFX_BOSS_05_TELEPORT": {
+      "__uuid__": "d9945830-4425-4752-9752-afacd80d3bb8"
+    },
+    "SFX_BOSS_DIE": {
+      "__uuid__": "58a1085c-49e9-4cb6-8eca-d4f94871e021"
+    },
+    "SFX_MC_DIE": {
+      "__uuid__": "040edf18-9e80-4d98-b15a-0326201d8f14"
+    },
+    "SFX_COLLECT_BUFF": {
+      "__uuid__": "c1efe416-b20a-4590-adf4-046e050d4e03"
+    },
+    "SFX_COLLECT_STAR": {
+      "__uuid__": "61eba96c-eb97-4d8e-92b0-268fd5b2e33e"
+    },
+    "SFX_COLLECT_GIFT": {
+      "__uuid__": "a57b525b-5fcd-4d32-b17c-bae3d690bf7e"
+    },
+    "SFX_END_GAME": {
+      "__uuid__": "c7491d09-5705-42d6-8c07-8dee7b3ff9cc"
+    },
+    "SFX_FIREBALL_WARNING": {
+      "__uuid__": "41ec37f0-bf0d-4e00-8c73-56a61bcb6be5"
+    },
+    "SFX_FIREBALL": {
+      "__uuid__": "635ba5a1-b45d-462f-885e-6478c59c8ca1"
+    },
+    "SFX_ATTENTION": {
+      "__uuid__": "b7f2ad3d-8c64-45df-9fdd-a70d37588616"
+    },
+    "SFX_OPEN_GIFT": {
+      "__uuid__": "301e1ab6-81b1-46ce-a46d-22c8aff45ff5"
+    },
+    "SFX_COUNT_DOWN": {
+      "__uuid__": "b7d9b0df-925b-4997-9d57-119bf582f96e"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "251864a5-5b19-4202-a414-5d0021085c47"
+    },
+    "fileId": "",
+    "sync": false
+  }
+]

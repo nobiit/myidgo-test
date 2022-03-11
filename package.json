@@ -1,0 +1,24 @@
+{
+  "name": "vtp-hovang-2022",
+  "version": "1.0.0",
+  "description": "Hello world new project template.",
+  "main": "level_export.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elofun/vtp-hovang-2022.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elofun/vtp-hovang-2022/issues"
+  },
+  "homepage": "https://github.com/elofun/vtp-hovang-2022#readme",
+  "dependencies": {
+    "@elofun/vds-wsgw": "^1.0.10",
+    "xlsx": "^0.17.4"
+  }
+}
