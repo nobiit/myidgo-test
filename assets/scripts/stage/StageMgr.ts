@@ -16,6 +16,7 @@ export enum Stages {
 export default class StageMgr extends SingletonComponent<StageMgr>() {
   @property(cc.Prefab) private StagePrefabs: Array<cc.Prefab> = [];
   private StageCover: cc.Node = null;
+  private Canvas: cc.Node = null;
 
   get CurrentStage(): cc.Node {
     return this.mCurrentStage;
@@ -76,49 +77,14 @@ export default class StageMgr extends SingletonComponent<StageMgr>() {
       this.node.addChild(node);
       node.active = false;
     }
+
+    this.Canvas = cc.find("Canvas");
     //
-    var hidden, visibilityChange;
-		if (typeof document.hidden !== "undefined") {
-			// Opera 12.10 and Firefox 18 and later support
-			hidden = "hidden";
-			visibilityChange = "visibilitychange";
-		} else if (typeof document.msHidden !== "undefined") {
-			hidden = "msHidden";
-			visibilityChange = "msvisibilitychange";
-		} else if (typeof document.webkitHidden !== "undefined") {
-			hidden = "webkitHidden";
-			visibilityChange = "webkitvisibilitychange";
-		}
-
-    (window as any).pointTime = null;
-		function handleVisibilityChange() {
-			if (document[hidden]) {
-				clearTimeout(this.pauseTimeout);
-				this.pauseTimeout = setTimeout(() => {
-					// console.log('PAUSEEEEEEEEEEEEEEEEEEEEE');
-          (window as any).pointTime = Date.now();
-				}, 400);
-			} else {
-				clearTimeout(this.resumeTimeout);
-				this.resumeTimeout = setTimeout(() => {
-					// console.log('RESUMEEEEEEEEEEEEEEEEEEEE')
-          //
-          Events.emit(Events.EventAddSessionTimer, {duration: Date.now() - (window as any).pointTime})
-				}, 400);
-			}
-		}
-
-		// Warn if the browser doesn't support addEventListener or the Page Visibility API
-		if (typeof document.addEventListener === "undefined" || hidden === undefined) {
-			console.log("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
-		} else {
-			// Handle page visibility change
-			document.addEventListener(visibilityChange, handleVisibilityChange, false);
-		}
+    this.registerVisibilityChange();
   }
 
   start() {
-    this.StageCover = GameMgr.Instance.Canvas.getChildByName("Stage Cover");
+    this.StageCover = this.Canvas.getChildByName("Stage Cover");
     this.StageCover.active = false;
 
     StageMgr.show(Stages.StageInterstitial);
@@ -164,5 +130,46 @@ export default class StageMgr extends SingletonComponent<StageMgr>() {
         this.StageCover.active = false;
       })
       .start();
+  }
+
+  private registerVisibilityChange(){
+    var hidden, visibilityChange;
+		if (typeof document.hidden !== "undefined") {
+			// Opera 12.10 and Firefox 18 and later support
+			hidden = "hidden";
+			visibilityChange = "visibilitychange";
+		} else if (typeof document.msHidden !== "undefined") {
+			hidden = "msHidden";
+			visibilityChange = "msvisibilitychange";
+		} else if (typeof document.webkitHidden !== "undefined") {
+			hidden = "webkitHidden";
+			visibilityChange = "webkitvisibilitychange";
+		}
+
+    (window as any).pointTime = null;
+		function handleVisibilityChange() {
+			if (document[hidden]) {
+				clearTimeout(this.pauseTimeout);
+				this.pauseTimeout = setTimeout(() => {
+					// console.log('PAUSEEEEEEEEEEEEEEEEEEEEE');
+          (window as any).pointTime = Date.now();
+				}, 400);
+			} else {
+				clearTimeout(this.resumeTimeout);
+				this.resumeTimeout = setTimeout(() => {
+					// console.log('RESUMEEEEEEEEEEEEEEEEEEEE')
+          //
+          // Events.emit(Events.EventAddSessionTimer, {duration: Date.now() - (window as any).pointTime})
+				}, 400);
+			}
+		}
+
+		// Warn if the browser doesn't support addEventListener or the Page Visibility API
+		if (typeof document.addEventListener === "undefined" || hidden === undefined) {
+			console.log("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
+		} else {
+			// Handle page visibility change
+			document.addEventListener(visibilityChange, handleVisibilityChange, false);
+		}
   }
 }

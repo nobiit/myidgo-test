@@ -6,8 +6,8 @@ export default class Loader extends cc.Component {
   @property(cc.Prefab) private PlaceHolderPrefabs: Array<cc.Prefab> = [];
 
   onLoad() {
-    (window as any).gameVersion = "0.0.52 - 28/01"
-    console.log("Version : " + (window as any).gameVersion)
+    // (window as any).gameVersion = "0.0.52 - 28/01"
+    // console.log("Version : " + (window as any).gameVersion)
     //
     for (let i = 0; i < this.SystemPrefabs.length; i++) {
       this.node.addChild(cc.instantiate(this.SystemPrefabs[i]));

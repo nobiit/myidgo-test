@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "StageInterstitial",
+    "_name": "Tile",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -25,13 +25,10 @@
     "_components": [
       {
         "__id__": 5
-      },
-      {
-        "__id__": 6
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 6
     },
     "_opacity": 255,
     "_color": {
@@ -43,8 +40,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 375,
-      "height": 812
+      "width": 0,
+      "height": 0
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -55,8 +52,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        187.5,
-        406,
+        0,
+        0,
         0,
         0,
         0,
@@ -82,7 +79,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -100,15 +97,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 230,
-      "g": 19,
-      "b": 19,
+      "r": 255,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 99.32,
-      "height": 50.4
+      "width": 30,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -145,7 +142,7 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -159,22 +156,21 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "PLAY",
-    "_N$string": "PLAY",
-    "_fontSize": 40,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_batchAsBitmap": false,
-    "_styleFlags": 0,
-    "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
-    "_N$cacheMode": 0,
+    "_spriteFrame": {
+      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+    },
+    "_type": 0,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -183,49 +179,22 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "7262f45e-22bd-4bbb-bb6f-860ee150ffbe"
+      "__uuid__": "bff14931-7a81-408f-86ab-cfeeb2d51397"
     },
-    "fileId": "1bRw2jY0hHvLxll4jIhLhw",
+    "fileId": "f9Ozyst2BNsqxtxSWSEe27",
     "sync": false
   },
   {
-    "__type__": "2a727mGifZD8K7pfK7QfNOq",
+    "__type__": "a2671JfmvpCD7R4fr+PMlmv",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "lblPlay": {
-      "__id__": 3
+    "sprite": {
+      "__id__": 2
     },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "alignMode": 1,
-    "_target": null,
-    "_alignFlags": 45,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 768,
-    "_originalHeight": 1024,
     "_id": ""
   },
   {
@@ -234,7 +203,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "7262f45e-22bd-4bbb-bb6f-860ee150ffbe"
+      "__uuid__": "bff14931-7a81-408f-86ab-cfeeb2d51397"
     },
     "fileId": "",
     "sync": false

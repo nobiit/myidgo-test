@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Stages",
+    "_name": "StageManager",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -39,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 768,
-      "height": 1024
+      "width": 375,
+      "height": 812
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -51,8 +51,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        384,
-        512,
+        187.5,
+        406,
         0,
         0,
         0,
@@ -129,7 +129,7 @@
     "asset": {
       "__uuid__": "1e908e9a-6f74-446d-93bd-7bf72198ad5d"
     },
-    "fileId": "d0cci8loVCMZG+zq9s6xLb",
+    "fileId": "",
     "sync": false
   }
 ]
