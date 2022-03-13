@@ -1,5 +1,5 @@
 const { ccclass, property, executeInEditMode } = cc._decorator;
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 import Localization, {
   LOCALIZATION_ENUM,
   LOCALIZATION_KEYS,

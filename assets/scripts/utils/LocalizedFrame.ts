@@ -1,4 +1,4 @@
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 import Localization from "../common/Localization";
 
 const { ccclass, property } = cc._decorator;

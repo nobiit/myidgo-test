@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Events",
+    "_name": "EventManager",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -89,9 +89,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "27ce34ab-f583-441f-b9ff-cbeda515e461"
     },
-    "fileId": "3dyyT23GVLo4NVFPzrJqUv",
+    "fileId": "",
     "sync": false
   }
 ]

@@ -341,10 +341,10 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
+    "_left": -1.0658141036401503e-14,
+    "_right": 1.0658141036401503e-14,
+    "_top": -1.0658141036401503e-14,
+    "_bottom": 1.0658141036401503e-14,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -382,7 +382,11 @@
       "__id__": 2
     },
     "_enabled": true,
-    "SystemPrefabs": [],
+    "SystemPrefabs": [
+      {
+        "__uuid__": "27ce34ab-f583-441f-b9ff-cbeda515e461"
+      }
+    ],
     "PlaceHolderPrefabs": [
       {
         "__uuid__": "1e908e9a-6f74-446d-93bd-7bf72198ad5d"

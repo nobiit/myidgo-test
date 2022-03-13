@@ -1,4 +1,4 @@
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 import ListViewItem from "./ListViewItem";
 
 const { ccclass, property } = cc._decorator;

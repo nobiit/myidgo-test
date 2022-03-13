@@ -40,8 +40,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 30,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -195,6 +195,7 @@
     "sprite": {
       "__id__": 2
     },
+    "moveDuration": 0.25,
     "_id": ""
   },
   {

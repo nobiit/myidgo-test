@@ -1,5 +1,5 @@
 import APIMgr from "../common/APIMgr";
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 import Localization from "../common/Localization";
 import ProfileMgr from "../common/ProfileMgr";
 import SoundMgr from "../common/SoundMgr";

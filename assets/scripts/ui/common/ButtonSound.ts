@@ -1,4 +1,4 @@
-import Events from "../../common/Events";
+import Events from "../../common/EventManager";
 import FrameMgr from "../../common/FrameMgr";
 import SoundMgr from "../../common/SoundMgr";
 import ButtonClickEvent from "./ButtonClickEvent";

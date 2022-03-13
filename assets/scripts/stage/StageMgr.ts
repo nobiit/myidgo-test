@@ -3,7 +3,7 @@ import SingletonComponent from "../utils/SingletonComponent";
 import GameMgr from "../game/GameMgr";
 import Helper from "../utils/Helper";
 import GameDefine from "../game/GameDefine";
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 
 const { ccclass, property } = cc._decorator;
 

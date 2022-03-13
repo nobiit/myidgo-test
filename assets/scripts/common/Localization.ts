@@ -1,6 +1,6 @@
 const { ccclass, property } = cc._decorator;
 import * as STRINGS from "../../strings";
-import Events from "./Events";
+import Events from "./EventManager";
 
 const enumObj = {};
 export const LOCALIZATION_KEYS = Object.keys(STRINGS);

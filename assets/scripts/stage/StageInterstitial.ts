@@ -7,7 +7,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class StageInterstitial extends Stage {
-  @property(cc.Label) private lblPlay: cc.Label;
+  @property(cc.Label) private lblPlay: cc.Label = null;
 
   onLoad(): void {
     this.lblPlay.node.on(cc.Node.EventType.TOUCH_END, () => {

@@ -1,4 +1,4 @@
-import Events from "../../common/Events";
+import Events from "../../common/EventManager";
 import ProfileMgr from "../../common/ProfileMgr";
 import SoundMgr from "../../common/SoundMgr";
 import ButtonClickEvent from "../common/ButtonClickEvent";

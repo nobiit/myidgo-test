@@ -1,4 +1,4 @@
-import Events from "../common/Events";
+import Events from "../common/EventManager";
 import GameDefine from "../game/GameDefine";
 import Timer from "../utils/Timer";
 

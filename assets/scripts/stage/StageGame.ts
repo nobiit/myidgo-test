@@ -7,7 +7,7 @@ import Stage from "./Stage";
 
 @ccclass
 export default class StageGame extends Stage {
-  @property(Board) private board: Board;
+  @property(Board) private board: Board = null;
 
   onLoad() {
     super.onLoad();

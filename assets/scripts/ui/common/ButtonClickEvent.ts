@@ -1,5 +1,5 @@
 import APIMgr from "../../common/APIMgr";
-import Events from "../../common/Events";
+import Events from "../../common/EventManager";
 import SoundMgr from "../../common/SoundMgr";
 
 const { ccclass, property } = cc._decorator;

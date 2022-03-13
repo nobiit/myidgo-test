@@ -3,7 +3,7 @@ import { IGunInfo } from "../interface/buy-gun-response";
 import Helper from "../utils/Helper";
 import SingletonComponent from "../utils/SingletonComponent";
 import APIMgr from "./APIMgr";
-import Events from "./Events";
+import Events from "./EventManager";
 import Localization from "./Localization";
 
 const { ccclass } = cc._decorator;
