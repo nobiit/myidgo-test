@@ -11,7 +11,10 @@ const COLOR_LIST = [
 ]
 enum STATE {
     IDLE, 
-    MOVE
+    MOVE, 
+    HIDE,
+    SHOW,
+    NONE
 }
 const {ccclass, property} = cc._decorator;
 
@@ -19,12 +22,26 @@ const {ccclass, property} = cc._decorator;
 export default class Tile extends cc.Component {
     @property(cc.Node) private sprite: cc.Node = null;
     @property() private moveDuration: number = 0.5;
+    @property() private shiftDuration: number = 0.5;
 
-    private indexColor:number = -1;
+    get IndexType(){
+        return this.indexType;
+    }
+    get IsIdling(){
+        return this.state == STATE.IDLE;
+    }
+    get IsHiding(){
+        return this.state == STATE.HIDE;
+    }
+    get IsNone(){
+        return this.state == STATE.NONE;
+    }
+
+    private indexType:number = -1;
     private touchStartPoint: any = null;
     private offsetEnableMove: number = 30;
     private posIndex:any = null;
-    private state: number = STATE.IDLE;
+    private state: number = STATE.SHOW;
 
     // LIFE-CYCLE CALLBACKS:
     protected onLoad(): void {
@@ -39,12 +56,20 @@ export default class Tile extends cc.Component {
         });
     }
 
-    init(indexColor:number, rowIndex:number, colIndex:number){
-        this.indexColor = indexColor;
-        this.sprite.color = COLOR_LIST[indexColor];
+    init(indexType:number, rowIndex:number, colIndex:number){
+        this.indexType = indexType;
+        this.sprite.color = COLOR_LIST[indexType];
 
         this.setPosIndex(rowIndex, colIndex)
-        this.state = STATE.IDLE;
+        //
+        this.node.scale = 0;
+        cc.tween(this.node)
+            .to(0.25, {scale:1})
+            .call(_=>{
+                this.state = STATE.IDLE;
+            })
+            .start();
+        this.state = STATE.SHOW;
     }
 
     setPos(x:number, y:number){
@@ -56,10 +81,40 @@ export default class Tile extends cc.Component {
         .to(this.moveDuration, {position:cc.v2(x, y)})
         .call(_=>{
             this.state = STATE.IDLE;    
+            EventManager.emit(
+                EventType.INGAME,
+                {action: ActionIngame.BOARD_CHECK_INDEX_MATCH, rowIndex: this.posIndex.rowIndex, colIndex: this.posIndex.colIndex}
+            )
         })
         .start();
         //
         this.setPosIndex(rowIndex, colIndex);
+        this.state = STATE.MOVE;
+    }
+
+    hide(){
+        cc.tween(this.node)
+            .to(0.25, {scale:0})
+            .call(_=>{
+                this.state = STATE.NONE;
+            })
+            .start();
+        //
+        this.state = STATE.HIDE;
+    }
+
+    shiftTo(y:number, rowIndex:number){
+        cc.tween(this.node)
+            .to(this.shiftDuration, {position:cc.v2(this.node.x, y)}, {easing: 'sineOut'})
+            .call(_=>{
+                this.state = STATE.IDLE;    
+            })
+            .start();
+        //
+        console.log(this.posIndex)
+        this.setPosIndex(rowIndex, this.posIndex.colIndex);
+        console.log(this.posIndex)
+        console.log('=======')
         this.state = STATE.MOVE;
     }
 

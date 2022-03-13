@@ -11,6 +11,13 @@ import Tile from "./Tile";
 
 const TILE_SIZE = 46;
 const TILE_TYPE_MAX = 6;
+enum STATE {
+    SHIFT, 
+    IDLE, 
+    ANIMATE,
+    SHUFFLE,
+    FRENZY
+}
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -21,6 +28,13 @@ export default class Board extends cc.Component {
     @property(cc.Prefab) tilePrefab: cc.Prefab = null;
 
     private tiles: Array<Array<Tile>> = []; 
+    private ADJACENT_DIRECTION:any = [
+        [0, 1],
+        [1, 0],
+        [0, -1],
+        [-1, 0]
+    ];
+    private state = STATE.IDLE;
     // LIFE-CYCLE CALLBACKS:
 
     init(){
@@ -32,8 +46,8 @@ export default class Board extends cc.Component {
                 let pos = this.getTilePos(i, j);
                 tileComponent.setPos(pos.x, pos.y);
 
-                let indexColor = Math.floor(Math.random() * TILE_TYPE_MAX)
-                tileComponent.init(indexColor, i, j);
+                let indexType = this.randomTileType();
+                tileComponent.init(indexType, i, j);
                 this.node.addChild(tile);
                 // this.tiles[i][j] = tileComponent;
                 rowTiles[j] = tileComponent;
@@ -41,37 +55,78 @@ export default class Board extends cc.Component {
             this.tiles[i] = rowTiles;
         }
 
-        EventManager.on(EventType.INGAME, this.onTileEvent.bind(this));
+        EventManager.on(EventType.INGAME, this.onBoardEvent.bind(this));
     }
 
-    private onTileEvent(paramaters:any){
+    protected update(dt: number): void {
+        switch(this.state){
+            case STATE.ANIMATE:{
+                for(let child of this.node.children){
+                    if(child.getComponent(Tile).IsHiding) return;
+                }
+                this.state = STATE.SHIFT;
+                this.shiftTiles();
+                break;
+            }
+            case STATE.SHIFT:{
+                for(let child of this.node.children){
+                    if(!child.getComponent(Tile).IsIdling) return;
+                }
+                this.state = STATE.IDLE;
+                break;
+            }
+        }
+    }
+
+    private onBoardEvent(paramaters:any){
         // console.log(paramaters.rowIndex, paramaters.colIndex);
         let row = paramaters.rowIndex;
         let col = paramaters.colIndex;
-        let newRow = row; 
-        let newCol = col;
         switch(paramaters.action){
             case ActionIngame.TILE_MOVE_LEFT:{
                 if(col-1 < 0) return;
-                newCol = col-1;  
+                this.swapTilePosition(row, col, row, col-1);
                 break;
             }
             case ActionIngame.TILE_MOVE_RIGHT:{
                 if(col+1 >= this.numOfColumn) return;
-                newCol = col+1;
+                this.swapTilePosition(row, col, row, col+1);
                 break;
             }
             case ActionIngame.TILE_MOVE_UP:{
                 if(row+1 >= this.numOfRow) return;
-                newRow = row+1;
+                this.swapTilePosition(row, col, row+1, col);
                 break;
             }
             case ActionIngame.TILE_MOVE_DOWN:{
                 if(row-1 < 0) return;
-                newRow = row-1;
+                this.swapTilePosition(row, col, row-1, col);
+                break;
+            }
+            case ActionIngame.BOARD_CHECK_INDEX_MATCH:{
+                this.checkIndexType(row, col);
                 break;
             }
         }
+    }
+
+    private checkIndexType(row:number, col:number){
+        let matchList = this.getAllMatchesAt(row, col);
+        if(matchList.length > 2){
+            for (let match of matchList) {
+                // if (!StateIngame.isTutorial) {
+                //     this.score += GameDefine.TILE_SCORE;
+                //     FrenzyBar.AddEnergy(GameDefine.TILE_SCORE);
+
+                //     // ScoreBar.SetCurrentScore(this.score);
+                // }
+                this.tiles[match[0]][match[1]].hide();
+            }
+            this.state = STATE.ANIMATE;
+        }
+    }
+
+    private swapTilePosition(row, col, newRow, newCol){
         let p1 = this.getTilePos(row, col);
         let p2 = this.getTilePos(newRow, newCol);
         this.tiles[row][col].moveToPos(p2.x, p2.y, newRow, newCol);
@@ -82,10 +137,81 @@ export default class Board extends cc.Component {
         this.tiles[newRow][newCol] = tileTmp; 
     }
 
+    private shiftTiles(){
+        for (let j = 0; j < this.numOfColumn; j++) {
+            let nullList = [];
+            let nullCount = 0;
+            for (let i = this.numOfRow - 1; i >= 0; i--) {
+                if (this.tiles[i][j].IsNone) {
+                    nullCount++;
+                    nullList.push(this.tiles[i][j]);
+                } else if (nullCount > 0) {
+                    let newPos = this.getTilePos(i + nullCount, j);
+                    this.tiles[i][j].shiftTo(newPos.y, i);
+                    this.tiles[i + nullCount][j] = this.tiles[i][j];
+                };
+
+                if (i == 0) {
+                    for (let n = 0; n < nullCount; n++) {
+                        let curPos = this.getTilePos(-n - 1, j);
+                        nullList[n].init(this.randomTileType(), curPos.x, curPos.y);
+                        let movePos = this.getTilePos(-(n + 1) + nullCount, j);
+                        nullList[n].shiftTo(movePos.y, i);
+                        this.tiles[-(n + 1) + nullCount][j] = nullList[n];
+                    }
+                }
+            }
+        }
+    }
+
     private getTilePos(row:number, col:number){
         return {
             x: (col - (this.numOfColumn - 1) / 2) * TILE_SIZE,
             y: (row - (this.numOfRow - 1) / 2) * TILE_SIZE
         }
+    }
+
+    private getAllMatchesAt(x, y) {
+        let matchList = [];
+        matchList.push([x, y]);
+
+        for (let i = 0; i < matchList.length; i++) {
+            let tmp = this.getMatchesAdjacent(matchList[i][0], matchList[i][1]);
+            for (let pos of tmp) {
+                let flag = false;
+                for (let check of matchList) {
+                    if (check[0] == pos[0] && check[1] == pos[1]) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) continue;
+
+                matchList.push(pos);
+            }
+        }
+
+        return matchList;
+    }
+
+    private getMatchesAdjacent(x, y) {
+        let result = [];
+        for (let i = 0; i < this.ADJACENT_DIRECTION.length; i++) {
+            let dir = this.ADJACENT_DIRECTION[i];
+            let newX = x + dir[0];
+            let newY = y + dir[1];
+            if (this.isTileValid(newX, newY) && this.tiles[x][y].IndexType == this.tiles[newX][newY].IndexType) {
+                result.push([newX, newY]);
+            }
+        }
+        return result;
+    }
+
+    private randomTileType(){
+        return Math.floor(Math.random() * TILE_TYPE_MAX);
+    }
+
+    private isTileValid(x, y) {
+        return x >= 0 && x < this.numOfRow && y >= 0 && y < this.numOfColumn;
     }
 }
