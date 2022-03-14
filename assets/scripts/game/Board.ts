@@ -110,23 +110,27 @@ export default class Board extends cc.Component {
         }
     }
 
-    private checkIndexType(row:number, col:number){
-        let matchList = this.getAllMatchesAt(row, col);
-        if(matchList.length > 2){
-            for (let match of matchList) {
+    private checkIndexType(rowIndex:number, colIndex:number){
+        let matchedTiles = this.getAllMatchesAt(rowIndex, colIndex);
+        // console.log(matchedTiles)
+        // return;
+        if(matchedTiles.length > 2){
+            for (let p of matchedTiles) {
                 // if (!StateIngame.isTutorial) {
                 //     this.score += GameDefine.TILE_SCORE;
                 //     FrenzyBar.AddEnergy(GameDefine.TILE_SCORE);
 
                 //     // ScoreBar.SetCurrentScore(this.score);
                 // }
-                this.tiles[match[0]][match[1]].hide();
+                this.tiles[p[0]][p[1]].hide();
             }
             this.state = STATE.ANIMATE;
         }
     }
 
     private swapTilePosition(row, col, newRow, newCol){
+        if(!this.isTileValid(row, col) || !this.isTileValid(newRow, newCol)) return;
+        //
         let p1 = this.getTilePos(row, col);
         let p2 = this.getTilePos(newRow, newCol);
         this.tiles[row][col].moveToPos(p2.x, p2.y, newRow, newCol);
@@ -135,33 +139,36 @@ export default class Board extends cc.Component {
         let tileTmp = this.tiles[row][col];
         this.tiles[row][col] = this.tiles[newRow][newCol];
         this.tiles[newRow][newCol] = tileTmp; 
+
+        // this.logPosIndex();
     }
 
     private shiftTiles(){
         for (let j = 0; j < this.numOfColumn; j++) {
-            let nullList = [];
-            let nullCount = 0;
+            let noneTiles = [];
+            let count = 0;
             for (let i = this.numOfRow - 1; i >= 0; i--) {
                 if (this.tiles[i][j].IsNone) {
-                    nullCount++;
-                    nullList.push(this.tiles[i][j]);
-                } else if (nullCount > 0) {
-                    let newPos = this.getTilePos(i + nullCount, j);
-                    this.tiles[i][j].shiftTo(newPos.y, i);
-                    this.tiles[i + nullCount][j] = this.tiles[i][j];
+                    count++;
+                    noneTiles.push(this.tiles[i][j]);
+                } else if (count > 0) {
+                    let newPos = this.getTilePos(i+count, j);
+                    this.tiles[i][j].shiftTo(newPos.y, i+count);
+                    this.tiles[i + count][j] = this.tiles[i][j];
                 };
+            }
+            for (let n = 0; n < count; n++) {
+                let nTile = noneTiles[n];
+                let curPos = this.getTilePos(-n - 1, j);
+                nTile.init(this.randomTileType(), -n - 1, j);
+                nTile.setPos(curPos.x, curPos.y);
 
-                if (i == 0) {
-                    for (let n = 0; n < nullCount; n++) {
-                        let curPos = this.getTilePos(-n - 1, j);
-                        nullList[n].init(this.randomTileType(), curPos.x, curPos.y);
-                        let movePos = this.getTilePos(-(n + 1) + nullCount, j);
-                        nullList[n].shiftTo(movePos.y, i);
-                        this.tiles[-(n + 1) + nullCount][j] = nullList[n];
-                    }
-                }
+                let movePos = this.getTilePos(-(n + 1) + count, j);
+                nTile.shiftTo(movePos.y, 0);
+                this.tiles[-(n + 1) + count][j] = nTile;
             }
         }
+        // this.logPosIndex();
     }
 
     private getTilePos(row:number, col:number){
@@ -171,9 +178,9 @@ export default class Board extends cc.Component {
         }
     }
 
-    private getAllMatchesAt(x, y) {
+    private getAllMatchesAt(row:number, col:number) {
         let matchList = [];
-        matchList.push([x, y]);
+        matchList.push([row, col]);
 
         for (let i = 0; i < matchList.length; i++) {
             let tmp = this.getMatchesAdjacent(matchList[i][0], matchList[i][1]);
@@ -194,14 +201,14 @@ export default class Board extends cc.Component {
         return matchList;
     }
 
-    private getMatchesAdjacent(x, y) {
+    private getMatchesAdjacent(row:number, col:number) {
         let result = [];
         for (let i = 0; i < this.ADJACENT_DIRECTION.length; i++) {
             let dir = this.ADJACENT_DIRECTION[i];
-            let newX = x + dir[0];
-            let newY = y + dir[1];
-            if (this.isTileValid(newX, newY) && this.tiles[x][y].IndexType == this.tiles[newX][newY].IndexType) {
-                result.push([newX, newY]);
+            let newRow = row + dir[0];
+            let newCol = col + dir[1];
+            if (this.isTileValid(newRow, newCol) && this.tiles[row][col].IndexType == this.tiles[newRow][newCol].IndexType) {
+                result.push([newRow, newCol]);
             }
         }
         return result;
@@ -211,7 +218,18 @@ export default class Board extends cc.Component {
         return Math.floor(Math.random() * TILE_TYPE_MAX);
     }
 
-    private isTileValid(x, y) {
-        return x >= 0 && x < this.numOfRow && y >= 0 && y < this.numOfColumn;
+    private isTileValid(row, col) {
+        return row >= 0 && row < this.numOfRow && col >= 0 && col < this.numOfColumn && this.tiles[row][col].IsIdling;
+    }
+
+    private logPosIndex(){
+        for (let i = 0; i < this.numOfRow; i++) {
+            for (let j = 0; j < this.numOfColumn; j++) {
+                let tileComp = this.tiles[i][j];
+                if(i != tileComp.PosIndex.row || j != tileComp.PosIndex.col){
+                    console.log(i, tileComp.PosIndex.row, j, tileComp.PosIndex.col)
+                }
+            }
+        }
     }
 }

@@ -36,6 +36,9 @@ export default class Tile extends cc.Component {
     get IsNone(){
         return this.state == STATE.NONE;
     }
+    get PosIndex(){
+        return {row: this.posIndex.rowIndex, col:this.posIndex.colIndex}
+    }
 
     private indexType:number = -1;
     private touchStartPoint: any = null;
@@ -111,10 +114,7 @@ export default class Tile extends cc.Component {
             })
             .start();
         //
-        console.log(this.posIndex)
         this.setPosIndex(rowIndex, this.posIndex.colIndex);
-        console.log(this.posIndex)
-        console.log('=======')
         this.state = STATE.MOVE;
     }
 
