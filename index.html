@@ -1,493 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Game Match 3</title>
-    <script type="text/javascript">
-      if (
-        window.location.origin === "https://api24.vtmoney.vn"
-      ) {
-        var base = document.createElement("base");
-        base.href = "https://api25.vtmoney.vn/hovang/prod/";
-        document.head.appendChild(base);
-      }
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-QTN82R0LLL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-XC1XBZ7VDN");
-    </script>
+<head>
+  <meta charset="utf-8">
 
-    <!--http://www.html5rocks.com/en/mobile/mobifying/-->
-    <meta
-      name="viewport"
-      content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"
-    />
+  <title>Cocos Creator | hello_world</title>
 
-    <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta name="format-detection" content="telephone=no" />
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
 
-    <!-- force webkit on 360 -->
-    <meta name="renderer" content="webkit" />
-    <meta name="force-rendering" content="webkit" />
-    <!-- force edge on IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="msapplication-tap-highlight" content="no" />
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
 
-    <!-- force full screen on some browser -->
-    <meta name="full-screen" content="yes" />
-    <meta name="x5-fullscreen" content="true" />
-    <meta name="360-fullscreen" content="true" />
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- force screen orientation on some browser -->
-    <meta name="screen-orientation" content="" />
-    <meta name="x5-orientation" content="" />
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
+  
+  <!-- force screen orientation on some browser -->
+  <meta name="screen-orientation" content=""/>
+  <meta name="x5-orientation" content="">
 
-    <!--fix fireball/issues/3568 -->
-    <!--<meta name="browsermode" content="application">-->
-    <meta name="x5-page-mode" content="app" />
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
 
-    <!--<link rel="apple-touch-icon" href=".png" />-->
-    <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
 
-    <link rel="stylesheet" type="text/css" href="style-mobile.f7060.css" />
-    <link rel="icon" href="icon.58d99.ico" />
-  </head>
-  <body>
-    <canvas
-      id="GameCanvas"
-      oncontextmenu="event.preventDefault()"
-      tabindex="0"
-    ></canvas>
-    <div id="splash">
-      <!-- <div id="title_game"></div> -->
-      <div class="progress-bar stripes" style="visibility: hidden">
-        <span style="width: 0%"></span>
-        <p style="position: relative">Loading...</p>
-      </div>
+  <link rel="stylesheet" type="text/css" href="style-mobile.6e9cd.css"/>
+  <link rel="icon" href="favicon.8de18.ico"/>
+</head>
+<body>
+  <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+  <div id="splash">
+    <div class="progress-bar stripes">
+      <span style="width: 0%"></span>
     </div>
-    <canvas
-      id="loading-canvas"
-      style="position: absolute; width: 100%; height: 100%; visibility: hidden"
-      width="750"
-      height="1334"
-      oncontextmenu="event.preventDefault()"
-    ></canvas>
+  </div>
 
-    <script src="src/settings.c6c57.js" charset="utf-8"></script>
+<script src="src/settings.c6c57.js" charset="utf-8"></script>
 
-    <script src="main.243a6.js" charset="utf-8"></script>
+<script src="main.243a6.js" charset="utf-8"></script>
 
-    <script type="text/javascript">
-      (function () {
-        // open web debugger console
-        if (typeof VConsole !== "undefined") {
-          window.vConsole = new VConsole();
-        }
+<script type="text/javascript">
+(function () {
+    // open web debugger console
+    if (typeof VConsole !== 'undefined') {
+        window.vConsole = new VConsole();
+    }
 
-        var debug = window._CCSettings.debug;
-        var splash = document.getElementById("splash");
-        splash.style.display = "block";
+    var debug = window._CCSettings.debug;
+    var splash = document.getElementById('splash');
+    splash.style.display = 'block';
 
-        function loadScript(moduleName, cb) {
-          function scriptLoaded() {
-            document.body.removeChild(domScript);
-            domScript.removeEventListener("load", scriptLoaded, false);
-            cb && cb();
-          }
-          var domScript = document.createElement("script");
-          domScript.async = true;
-          domScript.src = moduleName;
-          domScript.addEventListener("load", scriptLoaded, false);
-          document.body.appendChild(domScript);
-        }
-
-        loadScript(debug ? "cocos2d-js.js" : "cocos2d-js-min.887b0.js", function () {
-          if (CC_PHYSICS_BUILTIN || CC_PHYSICS_CANNON) {
-            loadScript(debug ? "physics.js" : "physics-min.e6810.js", window.boot);
-          } else {
-            window.boot();
-          }
-
-          cc.director.once(
-            cc.Director.EVENT_AFTER_SCENE_LAUNCH,
-            myCleanUpLoading
-          );
-        });
-      })();
-    </script>
-    <script id="loading-anim-script">
-      var myScreenOffsetX = 0;
-      var myScreenOffsetY = 0;
-      var myIsPortrait = true;
-      window.onload = function () {
-        var shorterEdge =
-          1334 *
-          (Math.min(window.innerWidth, window.innerHeight) /
-            Math.max(window.innerWidth, window.innerHeight));
-        if (myIsPortrait) {
-          myLoadingCanvas.width = shorterEdge;
-          myScreenOffsetX = (shorterEdge - 750) / 2;
-        } else {
-          myLoadingCanvas.height = shorterEdge;
-          myScreenOffsetY = (shorterEdge - 750) / 2;
-        }
-        myLoadingCanvas.style.visibility = "visible";
+    function loadScript (moduleName, cb) {
+      function scriptLoaded () {
+          document.body.removeChild(domScript);
+          domScript.removeEventListener('load', scriptLoaded, false);
+          cb && cb();
       };
+      var domScript = document.createElement('script');
+      domScript.async = true;
+      domScript.src = moduleName;
+      domScript.addEventListener('load', scriptLoaded, false);
+      document.body.appendChild(domScript);
+    }
 
-
-      var myRequestAnimId;
-      var myLoadingAnimScript = document.getElementById("loading-anim-script");
-      var myLoadingCanvas = document.getElementById("loading-canvas");
-      var myLoadingDefines = {
-        frameTime: 1 / 60,
-        imgs: {
-          tiger: { dir: "img_tiger.png", obj: new Image(), loaded: false },
-          loadingBarFill: {
-            dir: "Loading inside.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          textReady: { dir: "ready.png", obj: new Image(), loaded: false },
-          loadingEffect1: { dir: "img_1.png", obj: new Image(), loaded: false },
-          loadingEffect2: { dir: "img_2.png", obj: new Image(), loaded: false },
-          loadingEffect3: { dir: "img_3.png", obj: new Image(), loaded: false },
-          loadingEffect4: { dir: "img_4.png", obj: new Image(), loaded: false },
-          loadingEffect5: { dir: "img_5.png", obj: new Image(), loaded: false },
-          loadingEffect6: { dir: "img_6.png", obj: new Image(), loaded: false },
-          loadingEffect7: { dir: "img_7.png", obj: new Image(), loaded: false },
-          loadingEffect8: { dir: "img_8.png", obj: new Image(), loaded: false },
-          loadingEffect9: { dir: "img_9.png", obj: new Image(), loaded: false },
-          loadingEffect10: {
-            dir: "img_10.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect11: {
-            dir: "img_11.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect12: {
-            dir: "img_12.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect13: {
-            dir: "img_13.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect14: {
-            dir: "img_14.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect15: {
-            dir: "img_15.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect16: {
-            dir: "img_16.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect17: {
-            dir: "img_17.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect18: {
-            dir: "img_18.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect19: {
-            dir: "img_19.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect20: {
-            dir: "img_20.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect21: {
-            dir: "img_21.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect22: {
-            dir: "img_22.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect23: {
-            dir: "img_23.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect24: {
-            dir: "img_24.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect25: {
-            dir: "img_25.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect26: {
-            dir: "img_26.png",
-            obj: new Image(),
-            loaded: false,
-          },
-          loadingEffect27: {
-            dir: "img_27.png",
-            obj: new Image(),
-            loaded: false,
-          },
-        },
-        progress: 0,
-      };
-      var myProgressBar = document.querySelector(".progress-bar span");
-      var myCleanUpLoading = function () {
-        document.body.removeChild(myLoadingCanvas);
-        window.cancelAnimationFrame(myRequestAnimId);
-        myProgressBar = null;
-        myRequestAnimId = null;
-        myScreenOffsetX = null;
-        myScreenOffsetY = null;
-        myIsPortrait = null;
-        myLoadingCanvas = null;
-        myLoadingDefines = null;
-        myCleanUpLoading = null;
-        document.body.removeChild(myLoadingAnimScript);
-        myLoadingAnimScript = null;
-      };
-
-      (function () {
-        var canvas = myLoadingCanvas;
-        var ctx = canvas.getContext("2d");
-        var start = Date.now();
-
-        function loadImage(onComplete) {
-          var total = 0;
-          var count = 0;
-          var successCount = 0;
-          for (var key in myLoadingDefines.imgs) {
-            var image = myLoadingDefines.imgs[key];
-            if (!image.loaded) {
-              total++;
-              image.obj.src = "imgs/" + image.dir;
-              image.obj.onload = function () {
-                count++;
-                successCount++;
-                if (count == total) {
-                  onComplete(successCount == total);
-                }
-              };
-
-              image.obj.onerror = function () {
-                count++;
-                if (count == total) {
-                  onComplete(successCount == total);
-                }
-              };
-            }
-          }
-        }
-
-        function animateLoading() {
-          var LOADING_DONE = false;
-          var LOADING_BAR_FILL_WIDTH = 412;
-          var LOADING_BAR_FILL_HEIGHT = 25;
-
-          var TEXT_READY_SCALE = 0.75;
-          var TEXT_READY_WIDTH = 368 * TEXT_READY_SCALE;
-          var TEXT_READY_HEIGHT = 44 * TEXT_READY_SCALE;
-
-          var loadingEffect = new animation([
-            myLoadingDefines.imgs.loadingEffect1.obj,
-            myLoadingDefines.imgs.loadingEffect2.obj,
-            myLoadingDefines.imgs.loadingEffect3.obj,
-            myLoadingDefines.imgs.loadingEffect4.obj,
-            myLoadingDefines.imgs.loadingEffect5.obj,
-            myLoadingDefines.imgs.loadingEffect6.obj,
-            myLoadingDefines.imgs.loadingEffect7.obj,
-            myLoadingDefines.imgs.loadingEffect8.obj,
-            myLoadingDefines.imgs.loadingEffect9.obj,
-            myLoadingDefines.imgs.loadingEffect10.obj,
-            myLoadingDefines.imgs.loadingEffect11.obj,
-            myLoadingDefines.imgs.loadingEffect12.obj,
-            myLoadingDefines.imgs.loadingEffect13.obj,
-            myLoadingDefines.imgs.loadingEffect14.obj,
-            myLoadingDefines.imgs.loadingEffect15.obj,
-            myLoadingDefines.imgs.loadingEffect16.obj,
-            myLoadingDefines.imgs.loadingEffect17.obj,
-            myLoadingDefines.imgs.loadingEffect18.obj,
-            myLoadingDefines.imgs.loadingEffect19.obj,
-            myLoadingDefines.imgs.loadingEffect20.obj,
-            myLoadingDefines.imgs.loadingEffect21.obj,
-            myLoadingDefines.imgs.loadingEffect22.obj,
-            myLoadingDefines.imgs.loadingEffect23.obj,
-            myLoadingDefines.imgs.loadingEffect24.obj,
-            myLoadingDefines.imgs.loadingEffect25.obj,
-            myLoadingDefines.imgs.loadingEffect26.obj,
-            myLoadingDefines.imgs.loadingEffect27.obj,
-          ]);
-
-          var loadingBarFill = new animation([
-            myLoadingDefines.imgs.loadingBarFill.obj,
-          ]);
-          var textReady = new animation(
-            [myLoadingDefines.imgs.textReady.obj],
-            1,
-            TEXT_READY_SCALE
-          );
-          var textReadyAlphaAngle = 0;
-          var tiger = new animation([myLoadingDefines.imgs.tiger.obj]);
-
-          loadingBarFill.render = function () {
-            var img = this.imgs[this.frameIndex];
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width * myLoadingDefines.progress,
-              img.height,
-              this.x + myScreenOffsetX,
-              this.y + myScreenOffsetY,
-              img.width * this.scale * myLoadingDefines.progress,
-              img.height * this.scale
-            );
-          }.bind(loadingBarFill);
-
-          loadingEffect.setPos(canvas.width / 2 - 300, canvas.height / 2);
-          tiger.setPos(canvas.width / 2 - 325 - 50, canvas.height / 2 - 811);
-          loadingBarFill.setPos(
-            canvas.width / 2 - LOADING_BAR_FILL_WIDTH / 2 - 14,
-            canvas.height / 2 - LOADING_BAR_FILL_HEIGHT + 565 + 30
-          );
-          textReady.setPos(
-            canvas.width / 2 - TEXT_READY_WIDTH / 2,
-            canvas.height / 2 - TEXT_READY_HEIGHT + 565
-          );
-
-          var isTigerMoveDown = false;
-
-          function loop() {
-            var current = Date.now();
-            var dt = (current - start) / 1000;
-            start = current;
-
-            myLoadingDefines.progress =
-              parseFloat(myProgressBar.style.width) / 100;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            textReadyAlphaAngle += 3;
-            if (textReadyAlphaAngle > 360) {
-              textReadyAlphaAngle = 0;
-            }
-            textReady.setAlpha(
-              Math.abs(Math.sin((textReadyAlphaAngle / 180) * Math.PI))
-            );
-
-            loadingEffect.update(dt);
-            loadingBarFill.update(dt);
-            textReady.update(dt);
-            tiger.update(dt);
-
-            if(isTigerMoveDown) {
-              if(tiger.y > canvas.height / 2 - 811) isTigerMoveDown = false;
-            } else {
-              if(tiger.y < canvas.height / 2 - 861) isTigerMoveDown = true;
-            }
-
-            tiger.y += isTigerMoveDown ? 75*dt : -75*dt ;
-
-            myRequestAnimId = window.requestAnimationFrame(loop);
-
-            if (myLoadingDefines.progress >= 1 && !LOADING_DONE) {
-              LOADING_DONE = true;
-              setTimeout(() => {
-                if (myCleanUpLoading) myCleanUpLoading();
-              }, 3000);
-            }
-          }
-
-          myRequestAnimId = window.requestAnimationFrame(loop);
-        }
-
-        function animation(imgs, eachFrameCount = 1, scale = 1) {
-          this.imgs = imgs;
-          this.eachFrameCount = eachFrameCount;
-          this.scale = scale;
-          this.x = 0;
-          this.y = 0;
-          this.rotate = 0;
-          this.frameIndex = 0;
-          this.time = 0;
-          this.timePerFrame = myLoadingDefines.frameTime * this.eachFrameCount;
-          this.alpha = 1;
-
-          this.setPos = function (x, y) {
-            this.x = x;
-            this.y = y;
-          };
-
-          this.setAlpha = function (alpha) {
-            this.alpha = alpha;
-          };
-
-          this.update = function (dt) {
-            this.time += dt;
-            if (this.time >= this.timePerFrame) {
-              var step = Math.floor(this.time / this.timePerFrame);
-              this.time %= this.timePerFrame;
-              this.frameIndex = (this.frameIndex + step) % this.imgs.length;
-            }
-            this.render();
-          };
-
-          this.render = function () {
-            var img = this.imgs[this.frameIndex];
-            ctx.globalAlpha = this.alpha;
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width,
-              img.height,
-              this.x + myScreenOffsetX,
-              this.y + myScreenOffsetY,
-              img.width * this.scale,
-              img.height * this.scale
-            );
-            ctx.globalAlpha = 1;
-          };
-        }
-
-        loadImage(function (isLoaded) {
-          if (isLoaded) {
-            animateLoading();
-          }
-        });
-      })();
-    </script>
-  </body>
+    loadScript(debug ? 'cocos2d-js.js' : 'cocos2d-js-min.887b0.js', function () {
+      if (CC_PHYSICS_BUILTIN || CC_PHYSICS_CANNON) {
+        loadScript(debug ? 'physics.js' : 'physics-min.e6810.js', window.boot);
+      }
+      else {
+        window.boot();
+      }
+    });
+})();
+</script>
+</body>
 </html>
