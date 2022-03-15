@@ -21,6 +21,12 @@ export default class StageMgr extends SingletonComponent<StageMgr>() {
   get CurrentStage(): cc.Node {
     return this.mCurrentStage;
   }
+  get CanvasWidth():number{
+    return this.Canvas.width;
+  }
+  get CanvasHeight():number{
+    return this.Canvas.height;
+  }
 
   private mPreviousStage: cc.Node = null;
   private mCurrentStage: cc.Node = null;

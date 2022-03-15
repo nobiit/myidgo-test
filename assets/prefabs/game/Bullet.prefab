@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Enemy",
+    "_name": "Bullet",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -35,15 +35,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 193,
-      "g": 226,
-      "b": 22,
+      "r": 113,
+      "g": 206,
+      "b": 41,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 50,
-      "height": 50
+      "width": 10,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -75,8 +75,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 3,
-    "groupIndex": 3,
+    "_groupIndex": 2,
+    "groupIndex": 2,
     "_id": ""
   },
   {
@@ -112,14 +112,14 @@
     "_id": ""
   },
   {
-    "__type__": "307c7DSgRxBSZtTJRQHVv3j",
+    "__type__": "8f3e1p0xe1JJY6QLXF9sDny",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "speed": 25,
+    "speed": 200,
     "_id": ""
   },
   {
@@ -138,8 +138,8 @@
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 50,
-      "height": 50
+      "width": 10,
+      "height": 30
     },
     "_id": ""
   },
@@ -149,7 +149,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "ab66b547-69e2-420c-9059-d6156cb1af2e"
+      "__uuid__": "e8b0d629-8d3c-45e1-bd19-2a0527d30524"
     },
     "fileId": "",
     "sync": false

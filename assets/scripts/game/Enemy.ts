@@ -6,7 +6,7 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Enemy extends cc.Component {
-    @property() speed: number = 2;
+    @property() speed: number = 100;
     private state:number = STATE.NONE;
 
     init(x:number, y:number){
@@ -24,13 +24,16 @@ export default class Enemy extends cc.Component {
         this.state = STATE.NONE;
     }
 
+    die(){
+        this.node.parent.removeChild(this.node, true);
+    }
+
     onCollisionEnter(other: cc.Collider, self: cc.Collider) {
         if (other.node.group == "shield bar") {
-            console.log('1111111111')
-            self.getComponent(Enemy).stop()
+            this.stop()
         }
-        else{
-            console.log(other.node.group)
+        else if(other.node.group == "bullet"){
+            this.die();
         }
     }
 }

@@ -21,8 +21,8 @@ export default class StageGame extends Stage {
     // this.node.addChild(cc.instantiate(this.GameMgrPrefab));
     var manager = cc.director.getCollisionManager();
     manager.enabled = true;
-    manager.enabledDebugDraw = true;
-    manager.enabledDrawBoundingBox = true;
+    // manager.enabledDebugDraw = true;
+    // manager.enabledDrawBoundingBox = true;
   }
 
   init() {
@@ -40,12 +40,12 @@ export default class StageGame extends Stage {
   }
 
   protected update(dt: number): void {
-    if(this.spawnEnemyTimer > 0){
-      this.spawnEnemyTimer = Math.max(this.spawnEnemyTimer-dt, 0);
-      if(this.spawnEnemyTimer == 0){
-        this.spawnEnemyTimer = this.spawnEnemyDuration;
-        this.enemyMgr.spawn();
-      }
-    }
+    // if(this.spawnEnemyTimer > 0){
+    //   this.spawnEnemyTimer = Math.max(this.spawnEnemyTimer-dt, 0);
+    //   if(this.spawnEnemyTimer == 0){
+    //     this.spawnEnemyTimer = this.spawnEnemyDuration;
+    //     this.enemyMgr.spawn();
+    //   }
+    // }
   }
 }

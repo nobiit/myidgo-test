@@ -1,4 +1,5 @@
 import EventManager from "../common/EventManager";
+import BulletMgr from "./BulletMgr";
 import { ActionIngame, EventType } from "./Define";
 import EnemyMgr from "./EnemyMgr";
 import Tile from "./Tile";
@@ -20,6 +21,7 @@ export default class Board extends cc.Component {
     @property() numOfColumn: number = 0;
     @property() numOfRow: number = 0;
     @property(cc.Prefab) tilePrefab: cc.Prefab = null;
+    @property(BulletMgr) bulletMgr: BulletMgr = null;
 
     private tiles: Array<Array<Tile>> = []; 
     private ADJACENT_DIRECTION:any = [
@@ -130,6 +132,7 @@ export default class Board extends cc.Component {
                 //     // ScoreBar.SetCurrentScore(this.score);
                 // }
                 this.tiles[p[0]][p[1]].hide();
+                this.shootEnemyAt(p[0], p[1]);
             }
             this.state = STATE.ANIMATE;
             //
@@ -148,6 +151,7 @@ export default class Board extends cc.Component {
                 let tileComp = this.tiles[i][j];
                 if(tileComp.IsIdling && tileComp.IndexType == this.tiles[row][col].IndexType){
                     tileComp.hide();
+                    this.shootEnemyAt(i, j);
                 }
             }
         }
@@ -157,10 +161,16 @@ export default class Board extends cc.Component {
     private enableSpecial4(row:number, col:number){
         this.tiles[row][col].hide();
         for(let i=0; i < this.numOfRow; i++){
-            if(i != row) this.tiles[i][col].hide();        
+            if(i != row) {
+                this.tiles[i][col].hide();
+                this.shootEnemyAt(i, col);
+            }        
         }
         for(let j=0; j < this.numOfColumn; j++){
-            if(j != col) this.tiles[row][j].hide();        
+            if(j != col){
+                this.tiles[row][j].hide();        
+                this.shootEnemyAt(row, j);
+            }
         }
         this.state = STATE.ANIMATE;
     }
@@ -257,6 +267,11 @@ export default class Board extends cc.Component {
 
     private isTileValid(row, col) {
         return row >= 0 && row < this.numOfRow && col >= 0 && col < this.numOfColumn && this.tiles[row][col].IsIdling;
+    }
+
+    private shootEnemyAt(row:number, col:number){
+        let pos = this.getTilePos(row, col);
+        this.bulletMgr.spawn(pos.x, pos.y);
     }
 
     private logPosIndex(){
