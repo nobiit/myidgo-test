@@ -1,12 +1,6 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-
 import EventManager from "../common/EventManager";
 import { ActionIngame, EventType } from "./Define";
+import EnemyMgr from "./EnemyMgr";
 import Tile from "./Tile";
 
 const TILE_SIZE = 46;
@@ -35,9 +29,13 @@ export default class Board extends cc.Component {
         [-1, 0]
     ];
     private state = STATE.IDLE;
+
+    private enemyMgr:EnemyMgr = null;
     // LIFE-CYCLE CALLBACKS:
 
-    init(){
+    init(enemyMgr:EnemyMgr){
+        this.enemyMgr = enemyMgr;
+        //
         for (let i = 0; i < this.numOfRow; i++) {
             let rowTiles:Array<Tile> = [];
             for (let j = 0; j < this.numOfColumn; j++) {
@@ -107,11 +105,20 @@ export default class Board extends cc.Component {
                 this.checkIndexType(row, col);
                 break;
             }
+            case ActionIngame.BOARD_CHECK_SPECIAL:{
+                if(paramaters.specialType == '4'){
+                    this.enableSpecial4(row, col);
+                }
+                if(paramaters.specialType == '5'){
+                    this.enableSpecial5(row, col);
+                }
+                break;
+            }
         }
     }
 
-    private checkIndexType(rowIndex:number, colIndex:number){
-        let matchedTiles = this.getAllMatchesAt(rowIndex, colIndex);
+    private checkIndexType(row:number, col:number){
+        let matchedTiles = this.getAllMatchesAt(row, col);
         // console.log(matchedTiles)
         // return;
         if(matchedTiles.length > 2){
@@ -125,7 +132,37 @@ export default class Board extends cc.Component {
                 this.tiles[p[0]][p[1]].hide();
             }
             this.state = STATE.ANIMATE;
+            //
+            if(matchedTiles.length == 4){
+                this.tiles[row][col].init(6, row, col);
+            }
+            else if(matchedTiles.length > 4){
+                this.tiles[row][col].init(7, row, col);
+            }
         }
+    }
+
+    private enableSpecial5(row:number, col:number){
+        for (let i = 0; i < this.numOfRow; i++) {
+            for (let j = 0; j < this.numOfColumn; j++) {
+                let tileComp = this.tiles[i][j];
+                if(tileComp.IsIdling && tileComp.IndexType == this.tiles[row][col].IndexType){
+                    tileComp.hide();
+                }
+            }
+        }
+        this.state = STATE.ANIMATE;
+    }
+
+    private enableSpecial4(row:number, col:number){
+        this.tiles[row][col].hide();
+        for(let i=0; i < this.numOfRow; i++){
+            if(i != row) this.tiles[i][col].hide();        
+        }
+        for(let j=0; j < this.numOfColumn; j++){
+            if(j != col) this.tiles[row][j].hide();        
+        }
+        this.state = STATE.ANIMATE;
     }
 
     private swapTilePosition(row, col, newRow, newCol){
@@ -153,28 +190,28 @@ export default class Board extends cc.Component {
                     noneTiles.push(this.tiles[i][j]);
                 } else if (count > 0) {
                     let newPos = this.getTilePos(i+count, j);
-                    this.tiles[i][j].shiftTo(newPos.y, i+count);
+                    this.tiles[i][j].shiftTo(newPos.y, i+count, j);
                     this.tiles[i + count][j] = this.tiles[i][j];
                 };
             }
             for (let n = 0; n < count; n++) {
                 let nTile = noneTiles[n];
                 let curPos = this.getTilePos(-n - 1, j);
-                nTile.init(this.randomTileType(), -n - 1, j);
+                nTile.init(this.randomTileType(), nTile.PosIndex.row, j);
                 nTile.setPos(curPos.x, curPos.y);
 
                 let movePos = this.getTilePos(-(n + 1) + count, j);
-                nTile.shiftTo(movePos.y, 0);
+                nTile.shiftTo(movePos.y, -(n + 1) + count, j);
                 this.tiles[-(n + 1) + count][j] = nTile;
             }
         }
-        // this.logPosIndex();
+        this.logPosIndex();
     }
 
     private getTilePos(row:number, col:number){
         return {
             x: (col - (this.numOfColumn - 1) / 2) * TILE_SIZE,
-            y: (row - (this.numOfRow - 1) / 2) * TILE_SIZE
+            y: (row - (this.numOfRow - 1)) * TILE_SIZE - TILE_SIZE*0.5
         }
     }
 
@@ -187,7 +224,7 @@ export default class Board extends cc.Component {
             for (let pos of tmp) {
                 let flag = false;
                 for (let check of matchList) {
-                    if (check[0] == pos[0] && check[1] == pos[1]) {
+                    if(check[0] == pos[0] && check[1] == pos[1]) {
                         flag = true;
                         break;
                     }
@@ -226,9 +263,12 @@ export default class Board extends cc.Component {
         for (let i = 0; i < this.numOfRow; i++) {
             for (let j = 0; j < this.numOfColumn; j++) {
                 let tileComp = this.tiles[i][j];
-                if(i != tileComp.PosIndex.row || j != tileComp.PosIndex.col){
-                    console.log(i, tileComp.PosIndex.row, j, tileComp.PosIndex.col)
+                if(tileComp.IsIdling){
+                    if(i != tileComp.PosIndex.row || j != tileComp.PosIndex.col){
+                        console.log(i, tileComp.PosIndex.row, j, tileComp.PosIndex.col)
+                    }
                 }
+                
             }
         }
     }

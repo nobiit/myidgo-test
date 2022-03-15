@@ -8,6 +8,8 @@ const COLOR_LIST = [
     cc.Color.RED,
     cc.Color.BLACK,
     cc.Color.YELLOW,
+    cc.Color.ORANGE,
+    cc.Color.MAGENTA
 ]
 enum STATE {
     IDLE, 
@@ -21,6 +23,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Tile extends cc.Component {
     @property(cc.Node) private sprite: cc.Node = null;
+    @property(cc.Label) private lblSpecialNumer: cc.Label = null;
     @property() private moveDuration: number = 0.5;
     @property() private shiftDuration: number = 0.5;
 
@@ -44,6 +47,7 @@ export default class Tile extends cc.Component {
     private touchStartPoint: any = null;
     private offsetEnableMove: number = 30;
     private posIndex:any = null;
+    private isSpecial:boolean = false;
     private state: number = STATE.SHOW;
 
     // LIFE-CYCLE CALLBACKS:
@@ -57,11 +61,36 @@ export default class Tile extends cc.Component {
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this.handleEnableMove(event);
         });
+        this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if(this.isSpecial && this.IsIdling)
+            EventManager.emit(
+                EventType.INGAME,
+                {
+                    action: ActionIngame.BOARD_CHECK_SPECIAL, rowIndex: this.posIndex.rowIndex, colIndex: this.posIndex.colIndex,
+                    specialType: this.lblSpecialNumer.string
+                }
+            )
+        });
+        this.lblSpecialNumer.node.active = false;
     }
 
     init(indexType:number, rowIndex:number, colIndex:number){
-        this.indexType = indexType;
-        this.sprite.color = COLOR_LIST[indexType];
+        if(indexType == 6){
+            this.isSpecial = true;
+            this.lblSpecialNumer.node.active = true;
+            this.lblSpecialNumer.string = '4';
+            this.sprite.color = COLOR_LIST[indexType];
+            this.indexType = indexType;
+        }
+        else if(indexType == 7){
+            this.isSpecial = true;
+            this.lblSpecialNumer.node.active = true;
+            this.lblSpecialNumer.string = '5';
+        }
+        else{
+            this.sprite.color = COLOR_LIST[indexType];
+            this.indexType = indexType;
+        }
 
         this.setPosIndex(rowIndex, colIndex)
         //
@@ -103,10 +132,12 @@ export default class Tile extends cc.Component {
             })
             .start();
         //
+        this.isSpecial = false;
+        this.lblSpecialNumer.node.active = false;
         this.state = STATE.HIDE;
     }
 
-    shiftTo(y:number, rowIndex:number){
+    shiftTo(y:number, rowIndex:number, colIndex:number){
         cc.tween(this.node)
             .to(this.shiftDuration, {position:cc.v2(this.node.x, y)}, {easing: 'sineOut'})
             .call(_=>{
@@ -114,7 +145,7 @@ export default class Tile extends cc.Component {
             })
             .start();
         //
-        this.setPosIndex(rowIndex, this.posIndex.colIndex);
+        this.setPosIndex(rowIndex, colIndex);
         this.state = STATE.MOVE;
     }
 
